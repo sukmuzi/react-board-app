@@ -22,6 +22,10 @@ class BoardListComponent extends Component {
         this.props.history.push('/create-board/');
     }
 
+    readBoard(no) {
+        this.props.history.push('/read-board/${no}');
+    }
+
     render() {
         return (
             <div>
@@ -48,7 +52,7 @@ class BoardListComponent extends Component {
                                     board =>
                                         <tr key={board.no}>
                                             <td>{board.no}</td>
-                                            <td>{board.title}</td>
+                                            <td><a onClick={() => this.readBoard(board.no)}>{board.title}</a></td>
                                             <td>{board.userId}</td>
                                             <td>{board.createDate}</td>
                                             <td>{board.updateDate}</td>
