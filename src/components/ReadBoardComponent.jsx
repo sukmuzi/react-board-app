@@ -43,10 +43,38 @@ class ReadBoardComponent extends Component {
         )
     }
 
+    goToList() {
+        this.props.history.push('/board');
+    }
+
     render() {
         return (
             <div>
+                <div className="card col-md-6 offset-md-3">
+                    <h3 className="text-center"> Read Detail</h3>
+                    <div className="card-body">
+                        # 5.
+                        {this.returnBoardType(this.state.board.type)}
+                        <div className="row">
+                            # 6.
+                            <label> Title </label> : {this.state.board.title}
+                        </div>
 
+                        <div className="row">
+                            <label> Contents </label> : <br></br>
+                            <textarea value={this.state.board.contents} readOnly />
+                        </div >
+
+                        <div className="row">
+                            <label> UserId  </label>:
+                            {this.state.board.userId}
+                        </div>
+
+                        {this.returnDate(this.state.board.createDate, this.state.board.updateDate)}
+                        # 7.
+                        <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
+                    </div>
+                </div>
             </div>
         );
     }

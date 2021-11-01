@@ -23,7 +23,7 @@ class BoardListComponent extends Component {
     }
 
     readBoard(no) {
-        this.props.history.push('/read-board/${no}');
+        this.props.history.push(`/read-board/${no}`);
     }
 
     render() {
