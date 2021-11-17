@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 
@@ -19,7 +20,7 @@ class BoardListComponent extends Component {
     }
 
     createBoard() {
-        this.props.history.push('/create-board/');
+        this.props.history.push('/create-board/');      
     }
 
     readBoard(no) {

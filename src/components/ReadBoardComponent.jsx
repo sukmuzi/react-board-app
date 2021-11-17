@@ -20,9 +20,9 @@ class ReadBoardComponent extends Component {
     returnBoardType(typeNo) {
         let type = null;
 
-        if (typeNo === 1) {
+        if (typeNo === '1') {
             type = "자유게시판";
-        } else if (typeNo === 2) {
+        } else if (typeNo === '2') {
             type = "질문과 답변 게시판";
         } else {
             type = "타입 미지정";
