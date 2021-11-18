@@ -38,7 +38,7 @@ class ReadBoardComponent extends Component {
     returnDate(createDate, updateDate) {
         return (
             <div className="row">
-                <label>생성일 :  [ {createDate} ] / 수정일 : [ {updateDate} ]</label>
+                <label>생성일 :  [ {createDate} ] <br/> 수정일 : [ {updateDate} ]</label>
             </div>
         )
     }
@@ -47,29 +47,33 @@ class ReadBoardComponent extends Component {
         this.props.history.push('/board');
     }
 
+    goToUpdate(no) {
+        this.props.history.push(`/update-board/${no}`);
+    }
+
     render() {
         return (
             <div>
                 <div className="card col-md-6 offset-md-3">
                     <h3 className="text-center"> Read Detail</h3>
                     <div className="card-body">
-                        {this.returnBoardType(this.state.board.type)}
+                        {this.returnBoardType(this.state.board.type)}<br/>
                         <div className="row">
                             <label> Title : </label> {this.state.board.title}
-                        </div>
+                        </div><br/>
 
                         <div className="row">
-                            <label> Contents : </label><br></br>
+                            <label> Contents : </label><br/>
                             <textarea value={this.state.board.contents} readOnly />
-                        </div >
+                        </div ><br/>
 
                         <div className="row">
                             <label> UserId : </label> {this.state.board.userId}
-                        </div>
+                        </div><br/>
 
                         {this.returnDate(this.state.board.createDate, this.state.board.updateDate)}
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>목록</button>
-                        <button className="btn btn-success" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>수정</button>
+                        <button className="btn btn-success" onClick={() => this.goToUpdate(this.state.no)} style={{ marginLeft: "10px" }}>수정</button>
                         <button className="btn btn-danger" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>삭제</button>
                     </div>
                 </div>
