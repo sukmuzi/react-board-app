@@ -53,26 +53,24 @@ class ReadBoardComponent extends Component {
                 <div className="card col-md-6 offset-md-3">
                     <h3 className="text-center"> Read Detail</h3>
                     <div className="card-body">
-                        # 5.
                         {this.returnBoardType(this.state.board.type)}
                         <div className="row">
-                            # 6.
-                            <label> Title </label> : {this.state.board.title}
+                            <label> Title : </label> {this.state.board.title}
                         </div>
 
                         <div className="row">
-                            <label> Contents </label> : <br></br>
+                            <label> Contents : </label><br></br>
                             <textarea value={this.state.board.contents} readOnly />
                         </div >
 
                         <div className="row">
-                            <label> UserId  </label>:
-                            {this.state.board.userId}
+                            <label> UserId : </label> {this.state.board.userId}
                         </div>
 
                         {this.returnDate(this.state.board.createDate, this.state.board.updateDate)}
-                        # 7.
-                        <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>글 목록으로 이동</button>
+                        <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>목록</button>
+                        <button className="btn btn-success" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>수정</button>
+                        <button className="btn btn-danger" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>삭제</button>
                     </div>
                 </div>
             </div>
