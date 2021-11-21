@@ -51,6 +51,19 @@ class ReadBoardComponent extends Component {
         this.props.history.push(`/update-board/${no}`);
     }
 
+    goToDelete = async function () {
+        if(window.confirm('글을 삭제하시겠습니까?')) {
+            BoardService.deleteBoard(this.state.no).then(res => {
+                if(res.status === 200) {
+                    alert('삭제하였습니다.');
+                    this.props.history.push('/board');
+                } else {
+                    alert('글 삭제가 실패하였습니다.');
+                }
+            });
+        }
+    }
+
     render() {
         return (
             <div>
@@ -74,7 +87,7 @@ class ReadBoardComponent extends Component {
                         {this.returnDate(this.state.board.createDate, this.state.board.updateDate)}
                         <button className="btn btn-primary" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>목록</button>
                         <button className="btn btn-success" onClick={() => this.goToUpdate(this.state.no)} style={{ marginLeft: "10px" }}>수정</button>
-                        <button className="btn btn-danger" onClick={this.goToList.bind(this)} style={{ marginLeft: "10px" }}>삭제</button>
+                        <button className="btn btn-danger" onClick={() => this.goToDelete()} style={{ marginLeft: "10px" }}>삭제</button>
                     </div>
                 </div>
             </div>
