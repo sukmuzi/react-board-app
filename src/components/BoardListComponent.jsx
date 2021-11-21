@@ -7,6 +7,8 @@ class BoardListComponent extends Component {
         super(props);
 
         this.state = {
+            pageNum: 1,
+            paging: {},
             boards: []
         }
 
@@ -15,16 +17,87 @@ class BoardListComponent extends Component {
 
     componentDidMount() {
         BoardService.getBoards().then((res) => {
-            this.setState({ boards: res.data });
+            console.log(res);
+            this.setState({
+                pageNum: res.data.pagingData.currentPage,
+                paging: res.data.pagingData,
+                boards: res.data.list
+            });
         });
     }
 
     createBoard() {
-        this.props.history.push('/create-board/');      
+        this.props.history.push('/create-board/');
     }
 
     readBoard(no) {
         this.props.history.push(`/read-board/${no}`);
+    }
+
+    listBoard(pageNum) {
+        BoardService.getBoards(pageNum).then((res) => {
+            console.log(res);
+            this.setState({
+                pageNum: res.data.pagingData.currentPage,
+                paging: res.data.pagingData,
+                boards: res.data.list
+            });
+        });
+    }
+
+    viewPaging() {
+        const pageNums = [];
+
+        for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
+            pageNums.push(i);
+        }
+
+        return (pageNums.map((page) =>
+            <li className="page-item" key={page.toString()} >
+                <a className="page-link" onClick={() => this.listBoard(page)}>{page}</a>
+            </li>
+        ));
+    }
+
+    isPagingPrev() {
+        console.log('paging', this.state.paging.currentPage);
+        if (this.state.paging.prev) {
+            return (
+                <li className="page-item">
+                    <a className="page-link" onClick={() => this.listBoard((this.state.paging.currentPage - 1))} tabindex="-1">Previous</a>
+                </li>
+            );
+        }
+    }
+
+    isPagingNext() {
+        if (this.state.paging.next) {
+            return (
+                <li className="page-item">
+                    <a className="page-link" onClick={() => this.listBoard((this.state.paging.currentPage + 1))} tabIndex="-1">Next</a>
+                </li>
+            );
+        }
+    }
+
+    isMoveToFirstPage() {
+        if (this.state.pageNum !== -1) {
+            return (
+                <li className="page-item">
+                    <a className="page-link" onClick={() => this.listBoard(1)} tabIndex="-1">Move to First Page</a>
+                </li>
+            )
+        }
+    }
+
+    isMoveToLastPage() {
+        if (this.state.pageNum !== this.state.paging.pageNumCountTotal) {
+            return (
+                <li className="page-item">
+                    <a className="page-link" onClick={() => this.listBoard((this.state.paging.pageNumCountTotal))} tabIndex="-1">LastPage({this.state.paging.pageNumCountTotal})</a>
+                </li>
+            );
+        }
     }
 
     render() {
@@ -64,6 +137,27 @@ class BoardListComponent extends Component {
                             }
                         </tbody>
                     </table>
+                </div>
+                <div className="row">
+                    <nav aria-label="Page navigation example">
+                        <ul className="pagination justify-content-center">
+                            {
+                                this.isMoveToFirstPage()
+                            }
+                            {
+                                this.isPagingPrev()
+                            }
+                            {
+                                this.viewPaging()
+                            }
+                            {
+                                this.isPagingNext()
+                            }
+                            {
+                                this.isMoveToLastPage()
+                            }
+                        </ul>
+                    </nav>
                 </div>
             </div>
         );
